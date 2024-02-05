@@ -1,6 +1,6 @@
 ---
 - name: Deploy Nginx with Docker Swarm
-  hosts: manager
+  hosts: localhost
   become: true
 
   tasks:
