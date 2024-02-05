@@ -10,6 +10,6 @@
         image: nginx:latest
         replicas: 3
         ports:
-          - "80:80"
+          - "8888:80"
         state: present
 
