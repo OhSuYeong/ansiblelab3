@@ -1,22 +1,15 @@
 ---
 - name: Deploy Nginx with Docker Swarm
-  hosts: localhost
+  hosts: localhost  # Docker Swarm manager 노드를 지정합니다.
   become: true
 
   tasks:
-    - name: index.html
-      get_url:
-        url: https://www.nginx.com
-        dest: /var/www/html
-
-    - name: Set Docker Swarm service for Nginx
+    - name: Create Nginx service
       docker_swarm_service:
         name: nginx_service
-        image: nginx
-        replicas: 1
+        image: nginx:latest
+        replicas: 3
         ports:
-          - "8081:80"
-        mounts:
-          - source: /var/www/html
-            target: /usr/share/nginx/html
-            type: bind 
+          - "80:80"
+        state: present
+
