@@ -15,7 +15,7 @@
         image: nginx
         replicas: 1
         ports:
-          - "80:80"
+          - "8081:80"
         mounts:
           - source: /var/www/html
             target: /usr/share/nginx/html
