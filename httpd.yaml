@@ -1,6 +1,6 @@
 ---
 - name: Deploy Nginx with Docker Swarm
-  hosts: manager  # Docker Swarm manager 노드를 지정합니다.
+  hosts: all  # Docker Swarm manager 노드를 지정합니다.
   become: true
 
   tasks:
