@@ -1,15 +1,8 @@
 ---
-- name: Deploy Nginx with Docker Swarm
+- name: nginx 배포하기
   hosts: all  # Docker Swarm manager 노드를 지정합니다.
   become: true
 
   tasks:
-    - name: Create Nginx service
-      docker_swarm_service:
-        name: nginx_service
-        image: nginx:latest
-        replicas: 3
-        ports:
-          - "8888:80"
-        state: present
-
+    - name: nginx
+      shell: docker service create --name mynginx --replicas 3 --constarint node.role==worker --with-registry-auth -p 8080:80 nginx
