@@ -1,24 +1,22 @@
 ---
-- name: 웹서버 설치
-  hosts: all
-  become: yes
-  
+- name: Deploy Nginx with Docker Swarm
+  hosts: manager
+  become: true
+
   tasks:
-    - name: nginx
-      apt:
-        name: nginx
-        state: present
     - name: index.html
       get_url:
         url: https://www.nginx.com
         dest: /var/www/html
-    - name: service 
-      service:
-        name: nginx
-        state: started
-        enabled: true
-    - name: ufw
-      service:
-        name: ufw
-        state: stopped
-        enabled: false
+
+    - name: Set Docker Swarm service for Nginx
+      docker_swarm_service:
+        name: nginx_service
+        image: nginx
+        replicas: 1
+        ports:
+          - "80:80"
+        mounts:
+          - source: /var/www/html
+            target: /usr/share/nginx/html
+            type: bind 
